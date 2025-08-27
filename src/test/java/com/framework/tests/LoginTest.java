@@ -18,10 +18,8 @@ public class LoginTest extends BaseTest {
 
     @Test(dataProvider = "loginDataProvider")
     public void testValidLogin(String username, String password, String welcomeText) {
-        LoginPage loginPage = new LoginPage(driver);
         loginPage.login(username, password);
 
-        HomePage homePage = new HomePage(driver);
         homePage.verifyWelcomeText(welcomeText);
         System.out.println("Login test executed with user: " + username);
     }

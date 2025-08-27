@@ -19,46 +19,45 @@ public class CommonActions {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
     }
 
-    protected void click(By locator) {
-        waitForClickable(locator).click();
+    protected void click(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
     }
 
-    protected void type(By locator, String text) {
-        WebElement el = waitForVisible(locator);
-        el.clear();
-        el.sendKeys(text);
+    protected void type(WebElement element, String text) {
+        wait.until(ExpectedConditions.visibilityOf(element)).clear();
+        element.sendKeys(text);
     }
 
-    protected String getText(By locator) {
-        return waitForVisible(locator).getText();
+    protected String getText(WebElement element) {
+        return wait.until(ExpectedConditions.visibilityOf(element)).getText();
     }
 
-    protected boolean isDisplayed(By locator) {
+    protected boolean isDisplayed(WebElement element) {
         try {
-            return waitForVisible(locator).isDisplayed();
+            return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
         } catch (TimeoutException e) {
             return false;
         }
     }
 
-
-    protected WebElement waitForVisible(By locator) {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    protected WebElement waitForClickable(By locator) {
-        return wait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-    protected WebElement waitForPresent(By locator) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-    }
-
-    protected boolean waitForInvisible(By locator) {
-        return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-    }
-
-    protected boolean waitForUrlContains(String fragment) {
-        return wait.until(ExpectedConditions.urlContains(fragment));
-    }
+//
+//    protected WebElement waitForVisible(By locator) {
+//        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+//    }
+//
+//    protected WebElement waitForClickable(By locator) {
+//        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+//    }
+//
+//    protected WebElement waitForPresent(By locator) {
+//        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+//    }
+//
+//    protected boolean waitForInvisible(By locator) {
+//        return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+//    }
+//
+//    protected boolean waitForUrlContains(String fragment) {
+//        return wait.until(ExpectedConditions.urlContains(fragment));
+//    }
 }

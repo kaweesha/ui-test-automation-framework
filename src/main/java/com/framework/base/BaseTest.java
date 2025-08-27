@@ -1,5 +1,7 @@
 package com.framework.base;
 
+import com.framework.pages.HomePage;
+import com.framework.pages.LoginPage;
 import com.framework.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
@@ -12,6 +14,8 @@ import java.util.Properties;
 
 public class BaseTest {
     protected WebDriver driver;
+    protected LoginPage loginPage;
+    protected HomePage homePage;
 
     @BeforeSuite
     public void setupSuite() {
@@ -20,6 +24,7 @@ public class BaseTest {
         driver.get(url);
         System.out.println("Navigated to: " + url);
 
+        initPages();
         createAllureEnvironmentFile();
     }
 
@@ -27,6 +32,11 @@ public class BaseTest {
     public void tearDownSuite() {
         System.out.println("Logging out...");
         DriverManager.quitDriver();
+    }
+
+    private void initPages() {
+        loginPage = new LoginPage(driver);
+        homePage = new HomePage(driver);
     }
 
     private void createAllureEnvironmentFile() {
